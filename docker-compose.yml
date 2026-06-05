@@ -1,0 +1,14 @@
+services:
+  domain_monitor:
+    build: .
+    container_name: domain_monitor_avantec
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      # Si el servidor usa Nginx:
+      - /etc/nginx:/etc/server_web_config:ro
+      
+      # Si el servidor usa Apache (en Ubuntu/Debian suele ser /etc/apache2):
+      #- /etc/apache2:/etc/server_web_config:ro
+      - /:/host:ro
