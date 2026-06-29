@@ -32,7 +32,6 @@ class MySQLRepository:
                 user=self.config.DB_USER,
                 password=self.config.DB_PASSWORD,
                 database=self.config.DB_NAME,
-                ssl_mode=self.config.DB_SSL_MODE,
             )
             if conn.is_connected():
                 cursor = conn.cursor()

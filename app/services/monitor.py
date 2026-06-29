@@ -16,13 +16,14 @@ class MonitorService:
         requests.packages.urllib3.disable_warnings() 
 
     def run_scan(self) -> None:
-        """ NginxExtractor usa Nginx, ApacheExtractor usa Apache, solo cambiar esa linea """
         print(f"\n[INFO] Iniciando escaneo - {time.strftime('%Y-%m-%d %H:%M:%S')}")
         public_ip = NetworkUtils.get_public_ip()
         disk_free = SystemUtils.get_disk_free_gb() 
         print(f"[INFO] Espacio libre en disco: {disk_free} GB")
-        domains = NginxExtractor.get_domains(self.config.NGINX_DIR)
-        #domains = ApacheExtractor.get_domains(self.config.SERVER_DIR)
+        
+        # Corregido: Ahora usa la propiedad SERVER_DIR definida en Config
+        domains = NginxExtractor.get_domains(self.config.SERVER_DIR)
+        # domains = ApacheExtractor.get_domains(self.config.SERVER_DIR)
         
         for domain in domains:
             is_active = NetworkUtils.is_domain_active(domain)
